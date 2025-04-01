@@ -102,7 +102,7 @@ const onConfirmVisit = async (schedule_id: number) => {
 
               <div class="text-sm opacity-70">Birth Date:</div>
               <div class="font-medium">
-                {{ formatDate(transaction.patient?.birth_date) }}
+                {{transaction.patient?.birth_date }}
               </div>
               <!-- <div class="text-sm opacity-70">Barangay:</div>
               <div class="font-medium">

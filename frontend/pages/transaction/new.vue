@@ -303,20 +303,7 @@ async function confirmTransaction() {
                     class="input input-bordered w-full"
                     required
                   />
-                </div>
-                 <!-- Age-->
-                 <!-- <div class="form-control w-full mb-2">
-                  <label class="label">
-                    <span class="label-text mt-2 mb-0.5">Age</span>
-                  </label>
-                  <input
-                    type="text"
-                    v-model="patient.age"
-                    placeholder="Enter Age"
-                    class="input input-bordered w-full"
-                    required
-                  />
-                </div>  -->
+                </div>              
                 <!-- Gender -->
                 <div class="form-control w-full mb-2`">
                   <label class="label">
@@ -478,6 +465,7 @@ async function confirmTransaction() {
                       placeholder="Enter place"
                       class="input input-bordered w-full"
                       required
+                      @input="transaction.place = transaction.place.toUpperCase()"
                     />
                   </div>
                   <!-- Barangay  -->

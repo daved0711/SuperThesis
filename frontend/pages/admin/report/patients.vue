@@ -80,8 +80,7 @@ onMounted(() => exec());
             <td>{{ patient.first_name }}</td>
             <td>{{ patient.middle_name }}</td>
             <td>{{ patient.last_name }}</td>
-            <td>{{ formatDate(patient.birth_date) }}</td>
-            <!-- <td>{{ patient.age }}</td> -->
+            <td>{{ patient.birth_date }}</td>          
             <td>{{ patient.gender }}</td>
             <td>{{ patient.barangay?.name ?? "N/A" }}</td>
             <td>{{ formatDate(patient.created_at) }}</td>

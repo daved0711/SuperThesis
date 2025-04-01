@@ -56,7 +56,6 @@ export type Patient = {
   barangay: Barangay;
   barangay_id: number;
   birth_date: string;
-  // age: number;
   gender: string;
   created_at?: string;
   updated_at?: string;

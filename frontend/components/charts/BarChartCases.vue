@@ -78,7 +78,7 @@ onMounted(() => {
 
 <template>
   <div class="rounded-2xl shadow-sm p-6 border border-gray-200">
-    <h2 class="text-xl font-semibold mt-4">Cases Report: Past  Months</h2>
+    <h2 class="text-xl font-semibold mt-4">Cases Report: Past 7 Months</h2>
 
    <!-- loading loading -->
     <div v-if="loading">Loading...</div>

@@ -105,7 +105,7 @@ async function deleteUser() {
                     Are you sure you want to delete this user?
                   </p>
                   <span class="text-xs">
-                    Note: Deleted users will be archived and can be restored.
+                    Note: Deleted users will be permanently Deleted.
                     However, another user cannot be created with the same
                     username and email.
                   </span>

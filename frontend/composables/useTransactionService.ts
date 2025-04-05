@@ -23,7 +23,6 @@ export const useTransactionService = () => {
       useDataFetch<Array<any>>("/api/getTop10BrangayBase6Month");
 
 
-
   const getCounts= () =>
       useDataFetch<Record<string, number>>("/api/getCounts");
 

@@ -35,8 +35,8 @@ const authStore = useAuthStore();
       </ul>
     </div>
 
-    <div v-else class="flex items-center justify-center">
+    <!-- <div v-else class="flex items-center justify-center">
       <NuxtLink href="/login" class="btn btn-sm btn-secondary">Login</NuxtLink>
-    </div>
+    </div> -->
   </div>
 </template>

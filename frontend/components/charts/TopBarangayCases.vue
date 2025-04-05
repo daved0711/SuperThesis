@@ -15,7 +15,7 @@ const {
 </script>
 <template>
   <div class="w-[50%] mt-5 rounded-2xl shadow-sm p-6 border border-gray-200">
-    <h2 class="font-bold">Top Barangay Cases: Past Months</h2>
+    <h2 class="font-bold">Top Barangay Cases: Past 7 Months</h2>
     <table class="table table-zebra over">
       <thead>
       <tr>

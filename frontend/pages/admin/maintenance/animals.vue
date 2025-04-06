@@ -1,13 +1,13 @@
 <script setup lang="ts">
-const { toast } = useToast();
+const {toast} = useToast();
 const createModalOpen = ref(false);
 const animalName = ref("");
 const submitLoading = ref(false);
 
 const animalService = useAnimalService();
-const { formatDate } = useDateFormatter();
+const {formatDate} = useDateFormatter();
 
-const { data: animals, loading, refresh } = animalService.getAnimals();
+const {data: animals, loading, refresh} = animalService.getAnimals();
 
 function closeModal() {
   createModalOpen.value = false;
@@ -42,24 +42,24 @@ async function deleteAnimal(id: number) {
 
     <!-- Create Animal Modal -->
     <Modal
-      max-width="500"
-      :modal-open="createModalOpen"
-      header="Add Animal"
-      :onClickOutside="closeModal"
+        max-width="500"
+        :modal-open="createModalOpen"
+        header="Add Animal"
+        :onClickOutside="closeModal"
     >
       <form @submit.prevent="createAnimal">
         <input
-          v-model="animalName"
-          required
-          type="text"
-          placeholder="Animal name"
-          class="input w-full"
+            v-model="animalName"
+            required
+            type="text"
+            placeholder="Animal name"
+            class="input w-full"
         />
         <div class="card-actions justify-end mt-6 gap-2">
           <button
-            :disabled="submitLoading"
-            @click="closeModal"
-            class="btn btn-ghost"
+              :disabled="submitLoading"
+              @click="closeModal"
+              class="btn btn-ghost"
           >
             Cancel
           </button>
@@ -73,21 +73,26 @@ async function deleteAnimal(id: number) {
     <div>
       <table class="table table-zebra">
         <thead>
-          <tr>
-            <th>Animal Name</th>
-            <th>Patient Bitten</th>
-            <th>Date Created</th>
-            <th>Actions</th>
-          </tr>
+        <tr>
+          <th>Animal Name</th>
+          <th>Patient Bitten</th>
+          <th>Date Created</th>
+          <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="animal in animals" :key="animal.id">
-            <td>{{ animal.name }}</td>
-            <td>{{ animal?.transaction_count ?? 0 }}</td>
-            <td>{{ formatDate(animal.created_at) }}</td>
-            <td class="flex gap-2">
-              <EditAnimalModal :animal="animal" />
-              <DialogButton
+        <tr v-if="loading">
+          <td colspan="4" class="text-center">
+            <p class="loading text-center"></p>
+          </td>
+        </tr>
+        <tr v-else v-for="animal in animals" :key="animal.id">
+          <td>{{ animal.name }}</td>
+          <td>{{ animal?.transaction_count ?? 0 }}</td>
+          <td>{{ formatDate(animal.created_at) }}</td>
+          <td class="flex gap-2">
+            <EditAnimalModal :animal="animal"/>
+            <DialogButton
                 :disabled="loading"
                 class="btn-error btn-sm"
                 :header="`Delete animal: '${animal.name}'?`"
@@ -96,16 +101,16 @@ async function deleteAnimal(id: number) {
                 submitText="Delete"
                 maxWidth="500"
                 :onSubmit="async () => await deleteAnimal(animal.id!)"
-              >
-                <p class="text-base">
-                  Are you sure you want to delete this animal?
-                </p>
-                <span class="text-xs">
+            >
+              <p class="text-base">
+                Are you sure you want to delete this animal?
+              </p>
+              <span class="text-xs">
                   Note: If the animal has associated transactions, it cannot be deleted.
                 </span>
-              </DialogButton>
-            </td>
-          </tr>
+            </DialogButton>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>

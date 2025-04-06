@@ -51,7 +51,7 @@ export const useAuthStore = defineStore("auth", {
       try {
         this.user = {} as UserType;
         await useApiFetch("/logout", { method: "POST" });
-        await useRouter().push("/login");
+        await useRouter().push("/");
       } catch (error: any) {
         toast(`${error.data.message}`, "error");
       }

@@ -12,7 +12,7 @@ export const usePatientService = () => {
       body: JSON.stringify(patient),
     });
   const downloadPatients = (params: Record<string, any>) =>
-    useDownloadFile().downloadFile("/api/patient/exportCsv", params);
+    useDownloadFile().downloadFile("/patient/exportCsv", params);
 
   return { getPatients, createPatient, getPatient, downloadPatients };
 };

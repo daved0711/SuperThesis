@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Search } from "lucide-vue-next";
-const { getPatients, downloadPatients } = usePatientService();
-const { data: patients, loading, execute } = getPatients({ immediate: false });
-const { formatDate } = useDateFormatter();
-const { data: barangays } = useBarangayService().getBarangays();
+import {Search} from "lucide-vue-next";
+
+const {getPatients, downloadPatients} = usePatientService();
+const {data: patients, loading, execute} = getPatients({immediate: false});
+const {formatDate} = useDateFormatter();
+const {data: barangays} = useBarangayService().getBarangays();
 
 const filter = ref({
   barangay: "",
@@ -18,7 +19,7 @@ const exec = () => {
     params: filter.value,
   });
 };
-watch(filter, () => exec(), { deep: true });
+watch(filter, () => exec(), {deep: true});
 
 onMounted(() => exec());
 </script>
@@ -33,14 +34,14 @@ onMounted(() => exec());
             <span class="label-text">Barangay</span>
           </label>
           <select
-            v-model="filter.barangay"
-            class="select select-bordered w-full"
+              v-model="filter.barangay"
+              class="select select-bordered w-full"
           >
             <option value="">All Barangays</option>
             <option
-              v-for="barangay in barangays"
-              :value="barangay.id"
-              :key="barangay.id"
+                v-for="barangay in barangays"
+                :value="barangay.id"
+                :key="barangay.id"
             >
               {{ barangay.name }}
             </option>
@@ -49,12 +50,12 @@ onMounted(() => exec());
         <div class="w-full max-w-md mt-6">
           <label class="input w-full">
             <span v-if="loading" class="loading loading-bars loading-lg"></span>
-            <Search v-if="!loading" />
+            <Search v-if="!loading"/>
             <input
-              v-model="filter.name"
-              type="search"
-              class="grow"
-              placeholder="Search"
+                v-model="filter.name"
+                type="search"
+                class="grow"
+                placeholder="Search"
             />
           </label>
         </div>
@@ -64,42 +65,49 @@ onMounted(() => exec());
       </button>
       <table class="table table-zebra">
         <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Birth Date</th>
-            <th>Gender</th>
-            <th>Barangay</th>
-            <th>Date Created</th>
-            <th>Transactions</th>
-          </tr>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Birth Date</th>
+          <th>Gender</th>
+          <th>Barangay</th>
+          <th>Date Created</th>
+          <th>Transactions</th>
+        </tr>
         </thead>
         <tbody>
-          <tr v-for="patient in patients" :key="patient.id">
-            <td>{{ patient.first_name }}</td>
-            <td>{{ patient.middle_name }}</td>
-            <td>{{ patient.last_name }}</td>
-            <td>{{ patient.birth_date }}</td>          
-            <td>{{ patient.gender }}</td>
-            <td>{{ patient.barangay?.name ?? "N/A" }}</td>
-            <td>{{ formatDate(patient.created_at) }}</td>
-            <td>
-              <div class="flex gap-2">
-                <NuxtLink
+        <tr v-if="loading">
+          <td colspan="16" class="text-center">
+            <p class="loading text-center"></p>
+          </td>
+        </tr>
+        <tr v-else v-for="(patient, index) in patients" :key="patient.id">
+          <td>{{ (index + 1) }}</td>
+          <td>{{ patient.first_name }}</td>
+          <td>{{ patient.middle_name }}</td>
+          <td>{{ patient.last_name }}</td>
+          <td>{{ patient.birth_date }}</td>
+          <td>{{ patient.gender }}</td>
+          <td>{{ patient.barangay?.name ?? "N/A" }}</td>
+          <td>{{ formatDate(patient.created_at) }}</td>
+          <td>
+            <div class="flex gap-2">
+              <NuxtLink
                   class="btn btn-success btn-sm btn-soft"
                   :href="`patient/${patient.id}`"
-                >
-                  {{ patient.transactions_count }}
-                  {{
-                    patient.transactions_count! > 1
+              >
+                {{ patient.transactions_count }}
+                {{
+                  patient.transactions_count! > 1
                       ? "Transactions"
                       : "Transaction"
-                  }}
-                </NuxtLink>
-              </div>
-            </td>
-          </tr>
+                }}
+              </NuxtLink>
+            </div>
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>

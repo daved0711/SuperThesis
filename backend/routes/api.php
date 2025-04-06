@@ -30,8 +30,6 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::resource('/users', UserController::class);
     Route::resource('/animals', AnimalController::class);
     Route::apiResource('/brands', BrandController::class);
-    Route::get('/transaction/exportCsv', [TransactionController::class, 'exportExcel']);
-    Route::get('/patient/exportCsv', [PatientController::class, 'exportExcel']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

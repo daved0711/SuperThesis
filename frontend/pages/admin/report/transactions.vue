@@ -151,6 +151,7 @@ onMounted(() => {
     <table class="table table-zebra over">
       <thead>
         <tr>
+          <th>#</th>
           <th>Transaction ID</th>
           <th>Patient</th>
           <th>Age</th>
@@ -171,16 +172,17 @@ onMounted(() => {
       </thead>
       <tbody>
         <tr v-if="loading">
-          <td colspan="8 " class="text-center">
+          <td colspan="16" class="text-center">
             <p class="loading text-center"></p>
           </td>
         </tr>
         <template v-else>
           <tr
             v-if="transactions.length > 0"
-            v-for="transaction in transactions"
+            v-for="(transaction, index) in transactions"
             :key="transaction.id"
           >
+            <td>{{ (index + 1) }}</td>
             <td>{{ transaction.id }}</td>
             <td>{{ transaction.patient?.full_name }}</td>
             <td>{{ transaction.age }}</td>
@@ -218,7 +220,7 @@ onMounted(() => {
             </td>
           </tr>
           <tr v-else>
-            <td colspan="9">No Transactions</td>
+            <td colspan="16">No Transactions</td>
           </tr>
         </template>
       </tbody>

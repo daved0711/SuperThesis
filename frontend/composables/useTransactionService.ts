@@ -60,7 +60,7 @@ export const useTransactionService = () => {
       }
     );
   const downloadTransactions = (params: Record<string, any>) =>
-    useDownloadFile().downloadFile("/api/transaction/exportCsv", params);
+    useDownloadFile().downloadFile("/transaction/exportCsv", params);
 
   return {
     getTransactions,

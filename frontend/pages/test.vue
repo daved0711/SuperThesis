@@ -61,7 +61,7 @@ const logout = async () => {
         >
           Toggle Button
         </button>
-        <NuxtLink href="login" class="btn">Login Page</NuxtLink>
+        <NuxtLink href="/" class="btn">Login Page</NuxtLink>
       </div>
       <div class="flex flex-col gap-3">
         <button class="btn" @click="getUser">Get User</button>

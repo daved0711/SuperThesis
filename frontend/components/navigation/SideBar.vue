@@ -71,7 +71,7 @@ const menuList: Record<string, MenuList[]> = {
     {
       name: "Login",
       icon: Lock,
-      href: `/login`,
+      href: `/`,
     },
   ],
 };

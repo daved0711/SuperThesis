@@ -37,7 +37,7 @@ watch(
         >
           <Menu class="primary" />
         </button>
-        <NuxtLink :href="authStore.isLoggedIn ? '/admin/dashboard' : '/login'">
+        <NuxtLink :href="authStore.isLoggedIn ? '/admin/dashboard' : '/'">
           <h2 class="card-title">Animal Bite Management System</h2>
         </NuxtLink>
       </div>

@@ -22,7 +22,7 @@ class AnalyticService
 
     public function getTop10BrangayBase6Month(): array
     {
-        $data = DB::select("SELECT b.id, b.name, COUNT(t.id) AS transaction_count
+        $data = DB::select("SELECT b.id, b.name, COUNT(t.id) AS transaction_count, b.latitude, b.longitude
                 FROM barangays b
                 LEFT JOIN transactions t ON t.barangay_id = b.id
                 WHERE t.created_at >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)

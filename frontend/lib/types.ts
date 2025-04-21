@@ -43,6 +43,8 @@ export type Barangay = {
   id?: number;
   code: string;
   name: string;
+  latitude: string;
+  longitude: string;
   created_at?: string;
 };
 

@@ -3,6 +3,7 @@ import BarChartCases from "~/components/charts/BarChartCases.vue";
 import PieChartCases from "~/components/charts/PieChartCases.vue";
 import SimpleWidget from "~/components/widgets/SimpleWidget.vue";
 import TopBarangayCases from "~/components/charts/TopBarangayCases.vue";
+import MapWidget from "~/components/widgets/MapWidget.vue";
 
 const {getCounts} = useTransactionService();
 const {data: counts} = getCounts()
@@ -17,6 +18,7 @@ const {data: counts} = getCounts()
       </div>
     </div>
     <BarChartCases/>
+    <MapWidget />
     <div class="flex gap-5">
       <PieChartCases/>
       <TopBarangayCases/>

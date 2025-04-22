@@ -33,6 +33,25 @@ class AnalyticService
         return (array) $data;
     }
 
+    public function getTop10BrangayBaseMonthYear($start, $end): array
+    {
+        $data = DB::select("SELECT
+                                        b.id,
+                                        b.name,
+                                        COUNT(t.id) AS transaction_count,
+                                        b.latitude,
+                                        b.longitude
+                                    FROM barangays b
+                                    LEFT JOIN transactions t
+                                        ON t.barangay_id = b.id
+                                        AND t.created_at >= '$start'
+                                        AND t.created_at < '$end'
+                                    GROUP BY b.id, b.name
+                                    ORDER BY transaction_count DESC");
+
+        return (array) $data;
+    }
+
     private function getTotalTransactionCount(): int
     {
         return DB::table('transactions')->count();

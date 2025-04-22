@@ -22,6 +22,8 @@ export const useTransactionService = () => {
   const getTopBarangay= () =>
       useDataFetch<Array<any>>("/api/getTop10BrangayBase6Month");
 
+  const getTop10BrangayBaseMonthYear = (options?: DataFetchOptions) =>
+      useDataFetch<Array<any>>("/api/getTop10BrangayBaseMonthYear", options);
 
   const getCounts= () =>
       useDataFetch<Record<string, number>>("/api/getCounts");
@@ -72,6 +74,7 @@ export const useTransactionService = () => {
     getMonth6Cases,
     getCounts,
     getOnlyAnimalsCount,
-    getTopBarangay
+    getTopBarangay,
+    getTop10BrangayBaseMonthYear
   };
 };

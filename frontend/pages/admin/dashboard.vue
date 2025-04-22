@@ -7,6 +7,14 @@ import MapWidget from "~/components/widgets/MapWidget.vue";
 
 const {getCounts} = useTransactionService();
 const {data: counts} = getCounts()
+
+const monthYear = ref(null)
+
+onMounted(() => {
+  const date = new Date();
+  date.setMonth(date.getMonth());
+  monthYear.value = date.toISOString().slice(0, 7)
+})
 </script>
 
 
@@ -18,10 +26,69 @@ const {data: counts} = getCounts()
       </div>
     </div>
     <BarChartCases/>
-    <MapWidget />
-    <div class="flex gap-5">
+    <div class="flex gap-5 mb-5">
       <PieChartCases/>
       <TopBarangayCases/>
     </div>
+    <div class="rounded-2xl shadow-sm p-6 border border-gray-200">
+      <div class="grid grid-cols-2 gap-2 w-full">
+        <div>
+          <div class="legend">
+            <div class="title">Risk Levels for Animal Bite Cases</div>
+            <div class="item"><span class="color low"></span>Low Risk (0-5 cases) – Minimal cases, routine precautions
+              recommended.
+            </div>
+            <div class="item"><span class="color moderate"></span>Moderate Risk (6-15 cases) – Increased cases, clinics
+              should
+              prepare supplies.
+            </div>
+            <div class="item"><span class="color high"></span>High Risk (16-30 cases) – Significant rise, ensure staff
+              readiness and vaccine availability.
+            </div>
+            <div class="item"><span class="color critical"></span>Critical Risk (31+ cases) – Very high cases, urgent
+              preparedness needed.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="font-bold">Choose Month and Year:</div>
+          <input type="month" class="input input-bordered w-full" v-model="monthYear">
+        </div>
+      </div>
+      <MapWidget :monthYear="monthYear"/>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.legend {
+  .title {
+    font-weight: bolder;
+  }
+
+  .item {
+    .color {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+
+      &.low {
+        background-color: #00d26a;
+      }
+
+      &.moderate {
+        background-color: #fcd53f;
+      }
+
+      &.high {
+        background-color: #ff6723;
+      }
+
+      &.critical {
+        background-color: #f8312f;
+      }
+    }
+  }
+}
+</style>

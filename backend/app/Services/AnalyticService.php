@@ -298,4 +298,44 @@ class AnalyticService
         });
         return $data;
     }
+
+    public function getCategoryCountBranch($start, $end): array
+    {
+        $barangays = Barangay::all();
+        $data = [];
+        foreach ($barangays as $barangay) {
+            $genders =  DB::table('transactions')
+                ->select(DB::raw("
+                            CASE category
+                                WHEN 1 THEN 'I'
+                                WHEN 2 THEN 'II'
+                                WHEN 3 THEN 'III'
+                                ELSE 'Unknown'
+                            END AS category_roman
+                        "), DB::raw('count(transactions.id) as transaction_count'))
+                                    ->leftJoin('patients', 'transactions.patient_id', '=', 'patients.id')
+                                    ->whereBetween('transactions.created_at', [$start, $end])
+                                    ->where('transactions.barangay_id', $barangay->id)
+                                    ->groupBy('category_roman')
+                                    ->get();
+
+            $val = [];
+            $count = 0;
+            foreach ($genders as $animal) {
+                $val[$animal->category_roman] = $animal->transaction_count;
+                $count += $animal->transaction_count;
+            }
+            $genders = ['I', 'II', 'III'];
+            foreach ($genders as $animal) {
+                if(!array_key_exists($animal, $val)) {
+                    $val[$animal] = 0;
+                }
+            }
+            $data[] = array_merge($barangay->toArray(), ["genders" => $val, "count" => $count]);
+        }
+        usort($data, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
+        return $data;
+    }
 }

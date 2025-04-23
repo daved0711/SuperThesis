@@ -25,6 +25,9 @@ export const useTransactionService = () => {
   const getGenderCountBranch = (options?: DataFetchOptions) =>
       useDataFetch<Array<any>>("/api/getGenderCountBranch", options);
 
+  const getCategoryCountBranch = (options?: DataFetchOptions) =>
+      useDataFetch<Array<any>>("/api/getCategoryCountBranch", options);
+
   const getAgeCountBranch = (options?: DataFetchOptions) =>
       useDataFetch<Array<any>>("/api/getAgeCountBranch", options);
 
@@ -87,6 +90,7 @@ export const useTransactionService = () => {
     getTop10BrangayBaseMonthYear,
     getAnimalsCountBranch,
     getGenderCountBranch,
-    getAgeCountBranch
+    getAgeCountBranch,
+    getCategoryCountBranch
   };
 };

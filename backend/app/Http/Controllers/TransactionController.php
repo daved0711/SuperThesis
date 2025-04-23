@@ -367,4 +367,13 @@ class TransactionController extends Controller
         $analyticService = new AnalyticService();
         return response()->json($analyticService->getAnimalsCountBranch($start, $end));
     }
+
+    public function getGenderCountBranch(Request $request): JsonResponse
+    {
+        $monthYear = $request->input("monthYear");
+        $start = "$monthYear-01";
+        $end = date('Y-m-d', strtotime("$start +1 month"));
+        $analyticService = new AnalyticService();
+        return response()->json($analyticService->getGenderCountBranch($start, $end));
+    }
 }

@@ -27,7 +27,7 @@ class AnalyticService
                 FROM barangays b
                 LEFT JOIN transactions t ON t.barangay_id = b.id
                 WHERE t.created_at >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
-                GROUP BY b.id, b.name
+                GROUP BY b.id, b.name, b.latitude, b.longitude
                 ORDER BY transaction_count DESC
                 LIMIT 10;");
 
@@ -47,7 +47,7 @@ class AnalyticService
                                         ON t.barangay_id = b.id
                                         AND t.created_at >= '$start'
                                         AND t.created_at < '$end'
-                                    GROUP BY b.id, b.name
+                                    GROUP BY b.id, b.name, b.latitude, b.longitude
                                     ORDER BY transaction_count DESC");
 
         return (array) $data;
@@ -215,7 +215,7 @@ class AnalyticService
             }
             $animals = Animal::all();
             foreach ($animals as $animal) {
-                if(!array_key_exists($animal->name, $val)) {
+                if (!array_key_exists($animal->name, $val)) {
                     $val[$animal->name] = 0;
                 }
             }
@@ -247,7 +247,7 @@ class AnalyticService
             }
             $genders = ['male', 'female'];
             foreach ($genders as $animal) {
-                if(!array_key_exists($animal, $val)) {
+                if (!array_key_exists($animal, $val)) {
                     $val[$animal] = 0;
                 }
             }
@@ -274,11 +274,11 @@ class AnalyticService
                                 ELSE 'Unknown'
                             END AS age_category
                         "), DB::raw('count(transactions.id) as transaction_count'))
-                                    ->leftJoin('patients', 'transactions.patient_id', '=', 'patients.id')
-                                    ->whereBetween('transactions.created_at', [$start, $end])
-                                    ->where('transactions.barangay_id', $barangay->id)
-                                    ->groupBy('age_category')
-                                    ->get();
+                ->leftJoin('patients', 'transactions.patient_id', '=', 'patients.id')
+                ->whereBetween('transactions.created_at', [$start, $end])
+                ->where('transactions.barangay_id', $barangay->id)
+                ->groupBy('age_category')
+                ->get();
             $val = [];
             $count = 0;
             foreach ($genders as $animal) {
@@ -287,7 +287,7 @@ class AnalyticService
             }
             $genders = ['Child', 'Teen', 'Adult', 'Senior'];
             foreach ($genders as $animal) {
-                if(!array_key_exists($animal, $val)) {
+                if (!array_key_exists($animal, $val)) {
                     $val[$animal] = 0;
                 }
             }
@@ -313,11 +313,11 @@ class AnalyticService
                                 ELSE 'Unknown'
                             END AS category_roman
                         "), DB::raw('count(transactions.id) as transaction_count'))
-                                    ->leftJoin('patients', 'transactions.patient_id', '=', 'patients.id')
-                                    ->whereBetween('transactions.created_at', [$start, $end])
-                                    ->where('transactions.barangay_id', $barangay->id)
-                                    ->groupBy('category_roman')
-                                    ->get();
+                ->leftJoin('patients', 'transactions.patient_id', '=', 'patients.id')
+                ->whereBetween('transactions.created_at', [$start, $end])
+                ->where('transactions.barangay_id', $barangay->id)
+                ->groupBy('category_roman')
+                ->get();
 
             $val = [];
             $count = 0;
@@ -327,7 +327,7 @@ class AnalyticService
             }
             $genders = ['I', 'II', 'III'];
             foreach ($genders as $animal) {
-                if(!array_key_exists($animal, $val)) {
+                if (!array_key_exists($animal, $val)) {
                     $val[$animal] = 0;
                 }
             }

@@ -358,4 +358,13 @@ class TransactionController extends Controller
         $analyticService = new AnalyticService();
         return response()->json($analyticService->getTop10BrangayBaseMonthYear($start, $end));
     }
+
+    public function getAnimalsCountBranch(Request $request): JsonResponse
+    {
+        $monthYear = $request->input("monthYear");
+        $start = "$monthYear-01";
+        $end = date('Y-m-d', strtotime("$start +1 month"));
+        $analyticService = new AnalyticService();
+        return response()->json($analyticService->getAnimalsCountBranch($start, $end));
+    }
 }

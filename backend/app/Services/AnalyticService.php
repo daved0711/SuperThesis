@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Animal;
 use App\Models\Barangay;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -192,5 +193,37 @@ class AnalyticService
         $predictedCases = max(0, $predictedCases);
 
         return $predictedCases;
+    }
+
+    public function getAnimalsCountBranch($start, $end): array
+    {
+        $barangays = Barangay::all();
+        $data = [];
+        foreach ($barangays as $barangay) {
+            $animals = DB::table('transactions')
+                ->select('animals.name', DB::raw('count(transactions.id) as transaction_count'))
+                ->leftJoin('animals', 'transactions.animal_id', '=', 'animals.id')
+                ->whereBetween('transactions.created_at', [$start, $end])
+                ->where('transactions.barangay_id', $barangay->id)
+                ->groupBy('animals.name')
+                ->get();
+            $val = [];
+            $count = 0;
+            foreach ($animals as $animal) {
+                $val[$animal->name] = $animal->transaction_count;
+                $count += $animal->transaction_count;
+            }
+            $animals = Animal::all();
+            foreach ($animals as $animal) {
+                if(!array_key_exists($animal->name, $val)) {
+                    $val[$animal->name] = 0;
+                }
+            }
+            $data[] = array_merge($barangay->toArray(), ["animals" => $val, "count" => $count]);
+        }
+        usort($data, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
+        return $data;
     }
 }

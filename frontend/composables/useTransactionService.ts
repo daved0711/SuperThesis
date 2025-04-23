@@ -19,6 +19,9 @@ export const useTransactionService = () => {
   const getOnlyAnimalsCount= () =>
       useDataFetch<Record<string, number>>("/api/getOnlyAnimalsCount");
 
+  const getAnimalsCountBranch = (options?: DataFetchOptions) =>
+      useDataFetch<Array<any>>("/api/getAnimalsCountBranch", options);
+
   const getTopBarangay= () =>
       useDataFetch<Array<any>>("/api/getTop10BrangayBase6Month");
 
@@ -75,6 +78,7 @@ export const useTransactionService = () => {
     getCounts,
     getOnlyAnimalsCount,
     getTopBarangay,
-    getTop10BrangayBaseMonthYear
+    getTop10BrangayBaseMonthYear,
+    getAnimalsCountBranch
   };
 };

@@ -51,5 +51,6 @@ Route::get('/predictCase', [TransactionController::class, 'predictCase']);
 Route::get('/month6Cases', [TransactionController::class, 'month6Cases']);
 Route::get('/getCounts', [TransactionController::class, 'getCounts']);
 Route::get('/getOnlyAnimalsCount', [TransactionController::class, 'getOnlyAnimalsCount']);
+Route::get('/getAnimalsCountBranch', [TransactionController::class, 'getAnimalsCountBranch']);
 Route::get('/getTop10BrangayBase6Month', [TransactionController::class, 'getTop10BrangayBase6Month']);
 Route::get('/getTop10BrangayBaseMonthYear', [TransactionController::class, 'getTop10BrangayBaseMonthYear']);

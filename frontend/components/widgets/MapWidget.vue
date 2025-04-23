@@ -6,7 +6,7 @@ const {getTop10BrangayBaseMonthYear} = useTransactionService();
 const {data: barangays, loading, execute} = getTop10BrangayBaseMonthYear({immediate: false});
 
 const mapContainer = ref<HTMLElement | null>(null)
-const apiKey = 'AIzaSyBpPQinxJkTJGuTgfeEJFj5SxtoaL0kirg1' // replace this
+const apiKey = 'AIzaSyBpPQinxJkTJGuTgfeEJFj5SxtoaL0kirg' // replace this
 
 const props = defineProps<{
   monthYear: String

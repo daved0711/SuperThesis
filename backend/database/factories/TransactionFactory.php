@@ -38,6 +38,7 @@ class TransactionFactory extends Factory
             'created_at' => $timestamp,
             'updated_at' => $timestamp,
             'booster_given' => $this->faker->randomElement([0, 1]),
+            'age' => $this->faker->randomElement(range(1, 99))
         ];
     }
 }

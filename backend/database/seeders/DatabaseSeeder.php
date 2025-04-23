@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BarangaySeeder::class,
             UserSeeder::class,
-//            PatientSeeder::class,
-//            AnimalSeeder::class,
-//            BrandSeeder::class,
-//            TransactionSeeder::class
+            PatientSeeder::class,
+            AnimalSeeder::class,
+            BrandSeeder::class,
+            TransactionSeeder::class
         ]);
     }
 }

@@ -21,7 +21,7 @@ class PatientFactory extends Factory
             'middle_name' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E']),
             'last_name' => $this->faker->lastName,
             'barangay_id' => $this->faker->randomElement(range(1, 22)),
-            '' => $this->faker->date,
+            'birth_date' => $this->faker->date,
             'gender' => $this->faker->randomElement(['male', 'female']),
         ];
     }

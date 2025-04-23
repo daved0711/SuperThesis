@@ -258,4 +258,44 @@ class AnalyticService
         });
         return $data;
     }
+
+    public function getAgeCountBranch($start, $end): array
+    {
+        $barangays = Barangay::all();
+        $data = [];
+        foreach ($barangays as $barangay) {
+            $genders = DB::table('transactions')
+                ->select(DB::raw("
+                            CASE
+                                WHEN age BETWEEN 0 AND 12 THEN 'Child'
+                                WHEN age BETWEEN 13 AND 19 THEN 'Teen'
+                                WHEN age BETWEEN 20 AND 64 THEN 'Adult'
+                                WHEN age >= 65 THEN 'Senior'
+                                ELSE 'Unknown'
+                            END AS age_category
+                        "), DB::raw('count(transactions.id) as transaction_count'))
+                                    ->leftJoin('patients', 'transactions.patient_id', '=', 'patients.id')
+                                    ->whereBetween('transactions.created_at', [$start, $end])
+                                    ->where('transactions.barangay_id', $barangay->id)
+                                    ->groupBy('age_category')
+                                    ->get();
+            $val = [];
+            $count = 0;
+            foreach ($genders as $animal) {
+                $val[$animal->age_category] = $animal->transaction_count;
+                $count += $animal->transaction_count;
+            }
+            $genders = ['Child', 'Teen', 'Adult', 'Senior'];
+            foreach ($genders as $animal) {
+                if(!array_key_exists($animal, $val)) {
+                    $val[$animal] = 0;
+                }
+            }
+            $data[] = array_merge($barangay->toArray(), ["genders" => $val, "count" => $count]);
+        }
+        usort($data, function ($a, $b) {
+            return $b['count'] <=> $a['count'];
+        });
+        return $data;
+    }
 }

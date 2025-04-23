@@ -7,6 +7,7 @@ import MapWidget from "~/components/widgets/MapWidget.vue";
 import BarangayCases from "~/components/charts/BarangayCases.vue";
 import PieChartBarangayCases from "~/components/charts/PieChartBarangayCases.vue";
 import PieChartGenderBarangayCases from "~/components/charts/PieChartGenderBarangayCases.vue";
+import PieChartAgeBarangayCases from "~/components/charts/PieChartAgeBarangayCases.vue";
 
 const {getCounts} = useTransactionService();
 const {data: counts} = getCounts()
@@ -66,6 +67,7 @@ onMounted(() => {
     </div>
     <div class="flex gap-5 mb-5">
       <PieChartGenderBarangayCases :monthYear="monthYear" />
+      <PieChartAgeBarangayCases :monthYear="monthYear" />
     </div>
   </div>
 </template>
